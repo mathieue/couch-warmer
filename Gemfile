@@ -14,3 +14,4 @@ group :development do
 end
 
 gem "couchrest"
+gem "trollop"

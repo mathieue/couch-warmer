@@ -3,12 +3,11 @@ require 'couchrest'
 class CouchWarmer
   # database =  'http://127.0.0.1:5984/dbname'
   def initialize(database)
-    @db = CouchRest.database!(database)
+    @db = CouchRest.database(database)
   end
 
   # name with suffix, suffix
   def warm(name, suffix)
-    name = name[/(.*?)#{suffix}$/, 1]
     puts "warming.. #{name} from #{name}#{suffix}"
     begin
       src = @db.view('_design/' + name + suffix + '/_view/all')
@@ -16,11 +15,12 @@ class CouchWarmer
       puts "working hard...."
     end
 
-    msg = "\rstill active.."
+    msg = "still active.."
+    counter = 1
     while is_active?
-      msg  << '.'
-      print msg
+      print '.' if counter % 5 == 0
       sleep 1
+      counter += 1
     end
     puts "copying.."
     after_warm(name + suffix, name)

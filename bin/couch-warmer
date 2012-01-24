@@ -1,7 +1,19 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-require 'couch_warmer'
+require 'couch-warmer'
+require 'trollop'
 
-warmer = CouchWarmer.new('http://10.0.0.8:5984/artdb_staging')
-warmer.warm('WorkWarmUp', 'WarmUp')
+opts = Trollop::options do
+  opt :host, "Host addr", :default => '127.0.0.1'
+  opt :port, "Port", :default => '5984'
+  opt :dbname, "Database", :type => String
+  opt :name, "View name", :type => String
+  opt :suffix, "Warm suffix", :type => String
+end
+
+db = "http://#{opts[:host]}:#{opts[:port]}/#{opts[:dbname]}"
+puts db
+
+warmer = CouchWarmer.new(db)
+warmer.warm(opts[:name],opts[:suffix])

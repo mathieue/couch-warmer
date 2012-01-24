@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "couch-warmer"
   gem.homepage = "http://github.com/mathieue/couch-warmer"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: couchdb views index copy trick helper}
-  gem.description = %Q{TODO: couchdb view generation could take a while. you could build temp views, then copy them in one shot}
+  gem.summary = %Q{couchdb views index copy trick helper}
+  gem.description = %Q{couchdb view generation could take a while. you could build temp views, then copy them in one shot}
   gem.email = "mathieuelie@gmail.com"
   gem.authors = ["Mathieu Elie"]
   gem.executables = ["couch-warmer"]

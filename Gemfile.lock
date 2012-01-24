@@ -21,6 +21,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     shoulda (2.11.3)
+    trollop (1.16.2)
 
 PLATFORMS
   ruby
@@ -32,3 +33,4 @@ DEPENDENCIES
   rcov
   rdoc (~> 3.12)
   shoulda
+  trollop
