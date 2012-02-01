@@ -15,3 +15,4 @@ end
 
 gem "couchrest"
 gem "trollop"
+gem "json"
