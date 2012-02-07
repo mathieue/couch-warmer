@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "couch-warmer"
-  s.version = "1.0.4"
+  s.version = "1.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mathieu Elie"]
-  s.date = "2012-02-01"
+  s.date = "2012-02-07"
   s.description = "couchdb view generation could take a while. you could build temp views, then copy them in one shot"
   s.email = "mathieuelie@gmail.com"
   s.executables = ["couch-warmer"]
