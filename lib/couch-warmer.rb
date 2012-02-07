@@ -10,7 +10,8 @@ class CouchWarmer
   def warm(name, suffix)
     puts "warming.. #{name} from #{name}#{suffix}"
     begin
-      src = @db.view('_design/' + name + suffix + '/_view/all')
+      view_name = get_first_view(name + suffix)
+      src = @db.view('_design/' + name + suffix + '/_view/' + view_name)
     rescue RestClient::RequestTimeout => e
       puts "working hard...."
     end
@@ -43,6 +44,11 @@ class CouchWarmer
     tasks = CouchRest.get(@db.server.uri + '/_active_tasks')
     tasks.map! { |t| t['task'] + ' ' + t['status'] }
     !tasks.empty?
+  end
+
+  def get_first_view(design_doc)
+    design_info = CouchRest.get(@db.server.uri + '/' + @db.name + '/_design/' + design_doc)
+    design_info["views"].keys.first
   end
 end
 
