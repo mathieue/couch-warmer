@@ -2,7 +2,7 @@
 
 Couchdb view compilation copy trick command line implementation
 
-	couch-warmer --host 10.0.0.8 --dbname design  --name Work --suffix WarmUp
+	couch-warmer --host 10.0.0.8 --dbname mydb --suffix WarmUp
 
 == Contributing to couch-warmer
  

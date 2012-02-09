@@ -6,6 +6,20 @@ class CouchWarmer
     @db = CouchRest.database(database)
   end
 
+  def warm_all(suffix)
+    puts "warming all with suffix #{suffix}"
+    designs = get_all_design_docs suffix
+
+    designs.each do |design|
+      puts "warming #{design}"
+      begin
+        warm(design.gsub(suffix, ''), suffix)
+      rescue RestClient::InternalServerError => e
+        puts "error 500 on warming #{design} ..... -> next!"
+      end
+    end
+  end
+
   # name with suffix, suffix
   def warm(name, suffix)
     puts "warming.. #{name} from #{name}#{suffix}"
@@ -42,6 +56,7 @@ class CouchWarmer
 
   def is_active?
     tasks = CouchRest.get(@db.server.uri + '/_active_tasks')
+    tasks.reject! { |t| t['type'] != 'View Group Indexer' }
     tasks.map! { |t| t['task'] + ' ' + t['status'] }
     !tasks.empty?
   end
@@ -50,5 +65,11 @@ class CouchWarmer
     design_info = CouchRest.get(@db.server.uri + '/' + @db.name + '/_design/' + design_doc)
     design_info["views"].keys.first
   end
+
+  def get_all_design_docs(suffix)
+    designs = CouchRest.get(@db.server.uri + '/' + @db.name + '/_all_docs?startkey=%22_design/%22&endkey=%22_design0%22&include_docs=true')
+    designs["rows"].map {|d| d["id"].gsub '_design/', '' }.grep /#{suffix}$/
+  end
+  
 end
 

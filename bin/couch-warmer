@@ -8,7 +8,6 @@ opts = Trollop::options do
   opt :host, "Host addr", :default => '127.0.0.1'
   opt :port, "Port", :default => '5984'
   opt :dbname, "Database", :type => String
-  opt :name, "View name", :type => String
   opt :suffix, "Warm suffix", :type => String
 end
 
@@ -16,4 +15,4 @@ db = "http://#{opts[:host]}:#{opts[:port]}/#{opts[:dbname]}"
 puts db
 
 warmer = CouchWarmer.new(db)
-warmer.warm(opts[:name],opts[:suffix])
+warmer.warm_all(opts[:suffix])
